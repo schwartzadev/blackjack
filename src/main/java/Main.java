@@ -1,51 +1,47 @@
-import sun.plugin2.main.client.PluginEmbeddedFrame;
-
 import java.util.Scanner;
 
 /**
  * Created by werdn on 4/7/17.
  */
 public class Main {
-    public static Deck deck = new Deck();
     public static void main(String[] args) {
-        Player[] players =  {new Player(), new Player()};
-        for (Player p : players) {
-            p.cards.add(deck.draw());
-            p.cards.add(deck.draw());
-        }
+        Deck deck = new Deck();
+        Players players = new Players();
+        players.comp.cards.add(deck.draw());
+        players.user.cards.add(deck.draw());
 
-        System.out.println("You draw a " + players[1].cards.get(0) + " and a " + players[1].cards.get(1) + "." +
-                "\nThe dealer has a " + players[0].cards.get(0) + " face up.");
+        System.out.println("You draw a " + players.user.cards.get(0) + " and a " + players.user.cards.get(1) + "." +
+                "\nThe dealer has a " + players.comp.cards.get(0) + " face up.");
         int userTotal = 0;
         int dealerTotal = 0;
-        for (Card c : players[1].cards) {userTotal += c.value;}
+        for (Card c : players.user.cards) {userTotal += c.value;}
         System.out.print("Your hand: ");
-        printHand(players[1], userTotal);
+        printHand(players.user, userTotal);
         while (userTotal <= 21) {
             System.out.println("Would you like to hit (h) or stick (s)?");
             Scanner s = new Scanner(System.in);
             String selection = s.nextLine();
             if (selection.equals("h")) {
                 Card d = deck.draw();
-                players[1].cards.add(d);
+                players.user.cards.add(d);
                 userTotal += d.value;
                 System.out.print("Your hand:");
-                printHand(players[1], userTotal);
+                printHand(players.user, userTotal);
             } else if (selection.equals("s")) {
                 break;
             } else {}
         }
 
-        for (Card c : players[0].cards) {dealerTotal += c.value;}
+        for (Card c : players.comp.cards) {dealerTotal += c.value;}
         if (userTotal <= 21 && userTotal < 21) {
             System.out.println("The dealer has: " + dealerTotal);
-            printHand(players[0], dealerTotal);
+            printHand(players.comp, dealerTotal);
             while (dealerTotal <= 17) {
                 Card d = deck.draw();
-                players[0].cards.add(d);
+                players.comp.cards.add(d);
                 dealerTotal += d.value;
                 System.out.println("The dealer now has: ");
-                printHand(players[0], dealerTotal);
+                printHand(players.comp, dealerTotal);
             }
         }
         if (dealerTotal > 21) {
