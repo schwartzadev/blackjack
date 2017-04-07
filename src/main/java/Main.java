@@ -17,9 +17,10 @@ public class Main {
         System.out.println("You draw a " + players[1].cards.get(0) + " and a " + players[1].cards.get(1) + "." +
                 "\nThe dealer has a " + players[0].cards.get(0) + " face up.");
         int userTotal = 0;
+        int dealerTotal = 0;
         for (Card c : players[1].cards) {userTotal += c.value;}
         System.out.print("Your hand: ");
-        printHand(players[1]);
+        printHand(players[1], userTotal);
         while (userTotal <= 21) {
             System.out.println("Would you like to hit (h) or stick (s)?");
             Scanner s = new Scanner(System.in);
@@ -28,31 +29,40 @@ public class Main {
                 Card d = deck.draw();
                 players[1].cards.add(d);
                 userTotal += d.value;
-                System.out.print("Your hand: ");
-                printHand(players[1]);
+                System.out.print("Your hand:");
+                printHand(players[1], userTotal);
             } else if (selection.equals("s")) {
                 break;
             } else {}
         }
-        if (userTotal > 21) {
-            System.out.println("\nYou busted!");
-            System.exit(1);
-        } else if (userTotal <= 21) {
-            System.out.println("The dealer has: ");
-            printHand(players[0]);
-            int dealerTotal = 0;
-            for (Card c : players[1].cards) {dealerTotal += c.value;}
+
+        for (Card c : players[0].cards) {dealerTotal += c.value;}
+        if (userTotal <= 21 && userTotal < 21) {
+            System.out.println("The dealer has: " + dealerTotal);
+            printHand(players[0], dealerTotal);
             while (dealerTotal <= 17) {
                 Card d = deck.draw();
-                players[1].cards.add(d);
-                userTotal += d.value;
-                printHand(players[0]);
+                players[0].cards.add(d);
+                dealerTotal += d.value;
+                System.out.println("The dealer now has: ");
+                printHand(players[0], dealerTotal);
             }
         }
-
+        if (dealerTotal > 21) {
+            System.out.println("Dealer Busted!");
+            System.out.println("You Win! Dealer busted at " + dealerTotal + ", you had " + userTotal + ".");
+        } else if (userTotal > 21) {
+            System.out.println("You busted at " + userTotal + "!");
+        } else if (dealerTotal > userTotal) {
+            System.out.println("Dealer Wins! Dealer had " + dealerTotal + ", you had " + userTotal + ".");
+        } else if (userTotal > dealerTotal) {
+            System.out.println("You Win! Dealer had " + dealerTotal + ", you had " + userTotal + ".");
+        } else if (userTotal == dealerTotal) {
+            System.out.println("Push (aka tie). Dealer had " + dealerTotal + ", you had " + userTotal + ".");
+        }
     }
-    public static void printHand(Player p) {
+    public static void printHand(Player p, int total) {
         for (Card c : p.cards) {System.out.print(c + " ");}
-        System.out.println("\n");
+        System.out.println("(" + total + ")");
     }
 }
