@@ -1,7 +1,7 @@
 /**
  * Created by werdn on 4/7/17.
  */
-public class Card {
+class Card {
     int value;
     String kind;
     String suit;
