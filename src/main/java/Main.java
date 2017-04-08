@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Deck deck = new Deck();
-        Players players = new Players();
-        players.getComp().getCards().add(deck.draw());
+        Players players = new Players(); // init user and comp players
+        players.getComp().getCards().add(deck.draw()); // draw two cards each
         players.getComp().getCards().add(deck.draw());
         players.getUser().getCards().add(deck.draw());
         players.getUser().getCards().add(deck.draw());
@@ -15,28 +15,30 @@ public class Main {
         System.out.println("The dealer has a " + players.getComp().getCards().get(0) + " face up.");
         System.out.print("Your hand: "); printHand(players.getUser(), players.getUser().getTotal());
         Scanner s = new Scanner(System.in);
-        while (players.getUser().getTotal() <= 21) {
+        if (players.getComp().getCards().get(0).getValue() == 1 && players.getComp().getCards().get(1).getValue() == 10) {
+            System.out.println("Dealer has blackjack!");
+        }
+
+        while (players.getUser().getTotal() <= 21) { // while user hasn't broken
             System.out.println("Would you like to hit (h) or stick (s)?");
             String selection = s.nextLine();
             if (selection.equals("h")) {
                 Card d = deck.draw();
                 players.getUser().getCards().add(d);
-                players.getUser().setTotal(players.getUser().getTotal() + d.value);
+                players.getUser().setTotal(players.getUser().getTotal() + d.getValue());
                 System.out.print("Your hand:");
                 printHand(players.getUser(), players.getUser().getTotal());
-            } else if (selection.equals("s")) {
-                break;
-            }
+            } else if (selection.equals("s")) { break; }
         }
         s.close();
 
-        if (players.getUser().getTotal() <= 21 && players.getComp().getTotal() < 21) {
-            System.out.println("The dealer has: " + players.getComp().getTotal());
+        if (players.getUser().getTotal() <= 21) { // assuming user hasn't broken, let dealer take turn
+            System.out.println("The dealer has: ");
             printHand(players.getComp(), players.getComp().getTotal());
             while (players.getComp().getTotal() <= 17) {
                 Card d = deck.draw();
                 players.getComp().getCards().add(d);
-                players.getComp().setTotal(players.getComp().getTotal() + d.value);
+                players.getComp().setTotal(players.getComp().getTotal() + d.getValue());
                 System.out.println("The dealer now has: ");
                 printHand(players.getComp(), players.getComp().getTotal());
             }

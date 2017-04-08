@@ -2,6 +2,10 @@
  * Created by werdn on 4/7/17.
  */
 class Card {
+    public int getValue() {
+        return value;
+    }
+
     int value;
     String kind;
     String suit;
