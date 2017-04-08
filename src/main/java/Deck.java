@@ -5,7 +5,7 @@ import java.util.Collections;
  * Created by werdn on 4/7/17.
  */
 class Deck {
-    ArrayList<Card> cards = new ArrayList<Card>();
+    private ArrayList<Card> cards = new ArrayList<Card>();
 
     public Deck() {
         for (int i = 1; i <= 13; i++) {
@@ -40,21 +40,21 @@ class Deck {
 
     void fixFaceCards() {
         for (Card c : cards) {
-            if (c.value == 1) {
-                c.kind="A";
-                c.value=11;
-            } else if (c.value == 11) {
-                c.kind="J";
-                c.value=10;
-            } else if (c.value == 12) {
-                c.kind="Q";
-                c.value=10;
-            } else if (c.value == 13) {
-                c.kind="K";
-                c.value=10;
+            if (c.getValue() == 1) {
+                c.setKind("A");
+                c.setValue(11);
+            } else if (c.getValue() == 11) {
+                c.setKind("J");
+                c.setValue(10);
+            } else if (c.getValue() == 12) {
+                c.setKind("Q");
+                c.setValue(10);
+            } else if (c.getValue() == 13) {
+                c.setKind("K");
+                c.setValue(10);
             }
             else {
-                c.kind = String.valueOf(c.value);
+                c.setKind(String.valueOf(c.getValue()));
             }
         }
     }

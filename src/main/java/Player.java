@@ -4,8 +4,8 @@ import java.util.ArrayList;
  * Created by werdn on 4/7/17.
  */
 class Player {
-    ArrayList<Card> cards = new ArrayList<Card>();
-    int total;
+    private ArrayList<Card> cards = new ArrayList<Card>();
+    private int total;
 
     public Player() {
         this.total = 0;
@@ -29,7 +29,7 @@ class Player {
 
     int getTotal() {
         this.total = 0;
-        for (Card c : this.getCards()) {this.total += c.value;}
+        for (Card c : this.getCards()) {this.total += c.getValue();}
         return total;
     }
 }

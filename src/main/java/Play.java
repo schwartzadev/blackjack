@@ -34,10 +34,10 @@ class Play {
             String selection = s.nextLine();
             if (selection.equals("h")) {
                 Card d = deck.draw();
-                if (d.value == 11) {
+                if (d.getValue() == 11) {
                     System.out.println("You drew an " + d + ". Do you want it to be worth 11(y) or 1(n)?");
                     String acePrompt = ace.nextLine();
-                    if (acePrompt.equals("n")) { d.value = 1; }
+                    if (acePrompt.equals("n")) { d.setValue(1); }
                 }
                 user.addCard(d);
                 user.setTotal(user.getTotal() + d.getValue());
@@ -71,7 +71,7 @@ class Play {
         System.out.println("\n");
     }
     static void printHand(Player p, int total) {
-        for (Card c : p.cards) {System.out.print(c + " ");}
+        for (Card c : p.getCards()) {System.out.print(c + " ");}
         System.out.println("(" + total + ")");
     }
 }
