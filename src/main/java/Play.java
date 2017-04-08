@@ -30,7 +30,6 @@ class Play {
                 printHand(players.getUser(), players.getUser().getTotal());
             } else if (selection.equals("s")) { break; }
         }
-        s.close();
 
         if (players.getUser().getTotal() <= 21) { // assuming user hasn't broken, let dealer take turn
             System.out.println("The dealer has: ");
