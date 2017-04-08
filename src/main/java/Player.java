@@ -9,19 +9,19 @@ class Player {
     }
 
     ArrayList<Card> cards = new ArrayList<Card>();
-    int Total;
+    int total;
 
     public void setTotal(int total) {
-        Total = total;
+        this.total = total;
     }
 
     public int getTotal() {
-        this.Total = 0;
-        for (Card c : this.getCards()) {this.Total += c.value;}
-        return Total;
+        this.total = 0;
+        for (Card c : this.getCards()) {this.total += c.value;}
+        return total;
     }
 
     public Player() {
-        Total = 0;
+        total = 0;
     }
 }
