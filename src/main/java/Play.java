@@ -6,29 +6,30 @@ import java.util.Scanner;
 class Play {
     static void Game() {
         Deck deck = new Deck();
-        Players players = new Players(); // init user and comp players
-        players.getComp().getCards().add(deck.draw()); // draw two cards each
-        players.getUser().getCards().add(deck.draw());
-        players.getComp().getCards().add(deck.draw());
-        players.getUser().getCards().add(deck.draw());
+        Player comp = new Player(); // init comp player
+        Player user  = new Player(); // init user player
+        comp.getCards().add(deck.draw()); // draw two cards each
+        user.getCards().add(deck.draw());
+        comp.getCards().add(deck.draw());
+        user.getCards().add(deck.draw());
 
-        System.out.println("The dealer has a " + players.getComp().getCards().get(0) + " face up.");
-        System.out.print("Your hand: "); printHand(players.getUser(), players.getUser().getTotal());
+        System.out.println("The dealer has a " + comp.getCards().get(0) + " face up.");
+        System.out.print("Your hand: "); printHand(user, user.getTotal());
         Scanner s = new Scanner(System.in);
-        if (players.getComp().getCards().get(0).getValue() == 1 && players.getComp().getCards().get(1).getValue() == 10) {
+        if (comp.getCards().get(0).getValue() == 1 && comp.getCards().get(1).getValue() == 10) {
             System.out.println("Dealer has blackjack!");
         }
 
         Scanner ace = new Scanner(System.in);
-        if (players.getUser().getCards().get(0).getValue() == 11 || players.getUser().getCards().get(1).getValue() == 11) {
+        if (user.getCards().get(0).getValue() == 11 || user.getCards().get(1).getValue() == 11) {
             System.out.println("Do you want your ace to be worth 11(y) or 1(n)?");
             String acePrompt = ace.nextLine();
             if (acePrompt.equals("n")) {
-                players.getUser().setTotal(players.getUser().getTotal()-10);
+                user.setTotal(user.getTotal()-10);
             }
         }
 
-        while (players.getUser().getTotal() <= 21) { // while user hasn't broken
+        while (user.getTotal() <= 21) { // while user hasn't broken
             System.out.println("Would you like to hit (h) or stick (s)?");
             String selection = s.nextLine();
             if (selection.equals("h")) {
@@ -38,34 +39,34 @@ class Play {
                     String acePrompt = ace.nextLine();
                     if (acePrompt.equals("n")) { d.value = 1; }
                 }
-                players.getUser().getCards().add(d);
-                players.getUser().setTotal(players.getUser().getTotal() + d.getValue());
-                System.out.print("Your hand: "); printHand(players.getUser(), players.getUser().getTotal());
+                user.getCards().add(d);
+                user.setTotal(user.getTotal() + d.getValue());
+                System.out.print("Your hand: "); printHand(user, user.getTotal());
             } else if (selection.equals("s")) { break; }
         }
 
-        if (players.getUser().getTotal() <= 21) { // assuming user hasn't broken, let dealer take turn
+        if (user.getTotal() <= 21) { // assuming user hasn't broken, let dealer take turn
             System.out.println("The dealer has: ");
-            printHand(players.getComp(), players.getComp().getTotal());
-            while (players.getComp().getTotal() <= 17) {
+            printHand(comp, comp.getTotal());
+            while (comp.getTotal() <= 17) {
                 Card d = deck.draw();
-                players.getComp().getCards().add(d);
-                players.getComp().setTotal(players.getComp().getTotal() + d.getValue());
+                comp.getCards().add(d);
+                comp.setTotal(comp.getTotal() + d.getValue());
                 System.out.println("The dealer now has: ");
-                printHand(players.getComp(), players.getComp().getTotal());
+                printHand(comp, comp.getTotal());
             }
         }
-        if (players.getComp().getTotal() > 21) {
+        if (comp.getTotal() > 21) {
             System.out.println("Dealer Busted!");
-            System.out.println("You Win! Dealer busted at " + players.getComp().getTotal() + ", you had " + players.getUser().getTotal() + ".");
-        } else if (players.getUser().getTotal() > 21) {
-            System.out.println("You busted at " + players.getUser().getTotal() + "!");
-        } else if (players.getComp().getTotal() > players.getUser().getTotal()) {
-            System.out.println("Dealer Wins! Dealer had " + players.getComp().getTotal() + ", you had " + players.getUser().getTotal() + ".");
-        } else if (players.getUser().getTotal() > players.getComp().getTotal()) {
-            System.out.println("You Win! Dealer had " + players.getComp().getTotal() + ", you had " + players.getUser().getTotal() + ".");
-        } else if (players.getUser().getTotal() == players.getComp().getTotal()) {
-            System.out.println("Push (aka tie). Dealer had " + players.getComp().getTotal() + ", you had " + players.getUser().getTotal() + ".");
+            System.out.println("You Win! Dealer busted at " + comp.getTotal() + ", you had " + user.getTotal() + ".");
+        } else if (user.getTotal() > 21) {
+            System.out.println("You busted at " + user.getTotal() + "!");
+        } else if (comp.getTotal() > user.getTotal()) {
+            System.out.println("Dealer Wins! Dealer had " + comp.getTotal() + ", you had " + user.getTotal() + ".");
+        } else if (user.getTotal() > comp.getTotal()) {
+            System.out.println("You Win! Dealer had " + comp.getTotal() + ", you had " + user.getTotal() + ".");
+        } else if (user.getTotal() == comp.getTotal()) {
+            System.out.println("Push (aka tie). Dealer had " + comp.getTotal() + ", you had " + user.getTotal() + ".");
         }
         System.out.println("\n\n");
     }
