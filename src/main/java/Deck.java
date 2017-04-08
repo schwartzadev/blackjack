@@ -4,7 +4,7 @@ import java.util.Collections;
 /**
  * Created by werdn on 4/7/17.
  */
-public class Deck {
+class Deck {
     ArrayList<Card> cards = new ArrayList<Card>();
 
     public Deck() {
@@ -28,17 +28,17 @@ public class Deck {
         this.fixFaceCards();
     }
 
-    public Card draw() {
+    Card draw() {
         Card c = this.cards.get(0);
         this.cards.remove(0);
         return c;
     }
 
-    public void shuffle() {
+    void shuffle() {
         Collections.shuffle(this.cards);
     }
 
-    public void fixFaceCards() {
+    void fixFaceCards() {
         for (Card c : cards) {
             if (c.value == 1) {
                 c.kind="A";
