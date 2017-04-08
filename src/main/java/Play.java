@@ -8,8 +8,8 @@ class Play {
         Deck deck = new Deck();
         Players players = new Players(); // init user and comp players
         players.getComp().getCards().add(deck.draw()); // draw two cards each
-        players.getComp().getCards().add(deck.draw());
         players.getUser().getCards().add(deck.draw());
+        players.getComp().getCards().add(deck.draw());
         players.getUser().getCards().add(deck.draw());
 
         System.out.println("The dealer has a " + players.getComp().getCards().get(0) + " face up.");
