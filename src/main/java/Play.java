@@ -19,6 +19,14 @@ class Play {
             System.out.println("Dealer has blackjack!");
         }
 
+        if (players.getUser().getCards().get(0).getValue() == 1 || players.getUser().getCards().get(1).getValue() == 1) {
+            System.out.println("Do you want your ace to be worth 11(y) or 1(n)?");
+            String acePrompt = s.nextLine();
+            if (acePrompt.equals("y")) {
+                players.getUser().setTotal(players.getUser().getTotal()+10);
+            }
+        }
+
         while (players.getUser().getTotal() <= 21) { // while user hasn't broken
             System.out.println("Would you like to hit (h) or stick (s)?");
             String selection = s.nextLine();
