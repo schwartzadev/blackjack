@@ -42,6 +42,7 @@ class Deck {
         for (Card c : cards) {
             if (c.value == 1) {
                 c.kind="A";
+                c.value=11;
             } else if (c.value == 11) {
                 c.kind="J";
                 c.value=10;
