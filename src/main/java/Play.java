@@ -19,9 +19,10 @@ class Play {
             System.out.println("Dealer has blackjack!");
         }
 
-        if (players.getUser().getCards().get(0).getValue() == 1 || players.getUser().getCards().get(1).getValue() == 1) {
+        Scanner ace = new Scanner(System.in);
+        if (players.getUser().getCards().get(0).getValue() == 11 || players.getUser().getCards().get(1).getValue() == 11) {
             System.out.println("Do you want your ace to be worth 11(y) or 1(n)?");
-            String acePrompt = s.nextLine();
+            String acePrompt = ace.nextLine();
             if (acePrompt.equals("n")) {
                 players.getUser().setTotal(players.getUser().getTotal()-10);
             }
@@ -32,10 +33,14 @@ class Play {
             String selection = s.nextLine();
             if (selection.equals("h")) {
                 Card d = deck.draw();
+                if (d.value == 11) {
+                    System.out.println("You drew an " + d + ". Do you want it to be worth 11(y) or 1(n)?");
+                    String acePrompt = ace.nextLine();
+                    if (acePrompt.equals("n")) { d.value = 1; }
+                }
                 players.getUser().getCards().add(d);
                 players.getUser().setTotal(players.getUser().getTotal() + d.getValue());
-                System.out.print("Your hand:");
-                printHand(players.getUser(), players.getUser().getTotal());
+                System.out.print("Your hand: "); printHand(players.getUser(), players.getUser().getTotal());
             } else if (selection.equals("s")) { break; }
         }
 
@@ -62,6 +67,7 @@ class Play {
         } else if (players.getUser().getTotal() == players.getComp().getTotal()) {
             System.out.println("Push (aka tie). Dealer had " + players.getComp().getTotal() + ", you had " + players.getUser().getTotal() + ".");
         }
+        System.out.println("\n\n");
     }
     static void printHand(Player p, int total) {
         for (Card c : p.cards) {System.out.print(c + " ");}
