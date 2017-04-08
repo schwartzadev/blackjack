@@ -23,6 +23,10 @@ class Player {
         this.getCards().add(c);
     }
 
+    Card findCard(int i) {
+        return this.getCards().get(i);
+    }
+
     int getTotal() {
         this.total = 0;
         for (Card c : this.getCards()) {this.total += c.value;}

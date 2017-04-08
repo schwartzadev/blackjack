@@ -8,20 +8,20 @@ class Play {
         Deck deck = new Deck();
         Player comp = new Player(); // init comp player
         Player user  = new Player(); // init user player
-        comp.getCards().add(deck.draw()); // draw two cards each
-        user.getCards().add(deck.draw());
-        comp.getCards().add(deck.draw());
-        user.getCards().add(deck.draw());
+        comp.addCard(deck.draw()); // draw two cards each
+        user.addCard(deck.draw());
+        comp.addCard(deck.draw());
+        user.addCard(deck.draw());
 
-        System.out.println("The dealer has a " + comp.getCards().get(0) + " face up.");
+        System.out.println("The dealer has a " + comp.findCard(0) + " face up.");
         System.out.print("Your hand: "); printHand(user, user.getTotal());
         Scanner s = new Scanner(System.in);
-        if (comp.getCards().get(0).getValue() == 1 && comp.getCards().get(1).getValue() == 10) {
+        if (comp.findCard(0).getValue() == 1 && comp.findCard(1).getValue() == 10) {
             System.out.println("Dealer has blackjack!");
         }
 
         Scanner ace = new Scanner(System.in);
-        if (user.getCards().get(0).getValue() == 11 || user.getCards().get(1).getValue() == 11) {
+        if (user.findCard(0).getValue() == 11 || user.findCard(1).getValue() == 11) {
             System.out.println("Do you want your ace to be worth 11(y) or 1(n)?");
             String acePrompt = ace.nextLine();
             if (acePrompt.equals("n")) {
@@ -39,7 +39,7 @@ class Play {
                     String acePrompt = ace.nextLine();
                     if (acePrompt.equals("n")) { d.value = 1; }
                 }
-                user.getCards().add(d);
+                user.addCard(d);
                 user.setTotal(user.getTotal() + d.getValue());
                 System.out.print("Your hand: "); printHand(user, user.getTotal());
             } else if (selection.equals("s")) { break; }
@@ -50,7 +50,7 @@ class Play {
             printHand(comp, comp.getTotal());
             while (comp.getTotal() <= 17) {
                 Card d = deck.draw();
-                comp.getCards().add(d);
+                comp.addCard(d);
                 comp.setTotal(comp.getTotal() + d.getValue());
                 System.out.println("The dealer now has: ");
                 printHand(comp, comp.getTotal());
@@ -68,7 +68,7 @@ class Play {
         } else if (user.getTotal() == comp.getTotal()) {
             System.out.println("Push (aka tie). Dealer had " + comp.getTotal() + ", you had " + user.getTotal() + ".");
         }
-        System.out.println("\n\n");
+        System.out.println("\n");
     }
     static void printHand(Player p, int total) {
         for (Card c : p.cards) {System.out.print(c + " ");}
