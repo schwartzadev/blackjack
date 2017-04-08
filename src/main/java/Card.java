@@ -2,10 +2,6 @@
  * Created by werdn on 4/7/17.
  */
 class Card {
-    public int getValue() {
-        return value;
-    }
-
     int value;
     String kind;
     String suit;
@@ -19,4 +15,9 @@ class Card {
     public String toString() {
         return (kind + suit);
     }
+
+    public int getValue() {
+        return value;
+    }
+
 }
