@@ -33,8 +33,7 @@ class Player {
         for (Card c : this.getCards()) {
             if (!c.isFace()) this.total += c.getValue();
             if (c.isFace()) this.total += 10;
-
-            if (c.getValue() == 1) {
+            if (c.isAce()) {
                 aces++;
             }
         }
