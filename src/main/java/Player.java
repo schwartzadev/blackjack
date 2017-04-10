@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Created by werdn on 4/7/17.
  */
 class Player {
-    Hand hand;
+    Hand hand = new Hand();
     private int total;
 
     public Player() {
