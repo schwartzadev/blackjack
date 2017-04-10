@@ -28,8 +28,18 @@ class Player {
     }
 
     int getTotal() {
+        int aces = 0;
         this.total = 0;
-        for (Card c : this.getCards()) {this.total += c.getValue();}
+        for (Card c : this.getCards()) {
+            this.total += c.getValue();
+            if (c.getValue() == 11) {
+                aces++;
+            }
+        }
+        while (total > 21 && aces > 0) {
+            total -= 10;
+            aces--;
+        }
         return total;
     }
 }

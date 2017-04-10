@@ -20,25 +20,11 @@ class Game {
             System.out.println("Dealer has blackjack!");
         }
 
-        Scanner ace = new Scanner(System.in);
-        if (user.findCard(0).getValue() == 11 || user.findCard(1).getValue() == 11) {
-            System.out.println("Do you want your ace to be worth 11(y) or 1(n)?");
-            String acePrompt = ace.nextLine();
-            if (acePrompt.equals("n")) {
-                user.setTotal(user.getTotal()-10);
-            }
-        }
-
         while (user.getTotal() <= 21) { // while user hasn't broken
             System.out.println("Would you like to hit (h) or stick (s)?");
             String selection = s.nextLine();
             if (selection.equals("h")) {
                 Card d = deck.draw();
-                if (d.getValue() == 11) {
-                    System.out.println("You drew an " + d + ". Do you want it to be worth 11(y) or 1(n)?");
-                    String acePrompt = ace.nextLine();
-                    if (acePrompt.equals("n")) { d.setValue(1); }
-                }
                 user.addCard(d);
                 user.setTotal(user.getTotal() + d.getValue());
                 System.out.print("Your hand: "); printHand(user, user.getTotal());
