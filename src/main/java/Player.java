@@ -31,8 +31,12 @@ class Player {
         int aces = 0;
         this.total = 0;
         for (Card c : this.getCards()) {
-            if (!c.isFace()) this.total += c.getValue();
-            if (c.isFace()) this.total += 10;
+            if (!c.isFace()) {
+                this.total += c.getValue();
+            }
+            if (c.isFace()) {
+                this.total += 10;
+            }
             if (c.isAce()) {
                 aces++;
             }

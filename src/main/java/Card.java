@@ -34,10 +34,13 @@ class Card {
     boolean isFace() { return this.value >= 11; }
 
     String getDisplayValue() {
-        if(this.isAce()) return "A";
+        if(this.isAce()) {
+            return "A";
+        }
 
-        if(!this.isFace())
+        if(!this.isFace()) {
             return String.valueOf(this.value);
+        }
 
         switch(this.value) {
             case 11:

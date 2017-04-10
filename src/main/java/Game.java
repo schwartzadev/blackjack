@@ -57,7 +57,9 @@ class Game {
         System.out.println("\n");
     }
     static void printHand(Player p, int total) {
-        for (Card c : p.getCards()) {System.out.print(c + " ");}
+        for (Card c : p.getCards()) {
+            System.out.print(c + " ");
+        }
         System.out.println("(" + total + ")");
     }
 }
