@@ -3,8 +3,8 @@ import java.util.Scanner;
 /**
  * Created by werdn on 4/7/17.
  */
-class Play {
-    static void Game() {
+class Game {
+    static void Play() {
         Deck deck = new Deck();
         Player comp = new Player(); // init comp player
         Player user  = new Player(); // init user player
