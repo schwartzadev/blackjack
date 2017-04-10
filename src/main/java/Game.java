@@ -15,11 +15,8 @@ class Game {
 
         System.out.println("The dealer has a " + comp.findCard(0) + " face up.");
         System.out.print("Your hand: "); printHand(user, user.hand.getTotal());
+        if (comp.hand.hasBlackjack()) { System.out.println("Dealer has blackjack!"); }
         Scanner s = new Scanner(System.in);
-        if (comp.hand.hasBlackjack()) {
-            System.out.println("Dealer has blackjack!");
-        }
-
         while (!user.hand.isBusted()) { // while user hasn't broken
             System.out.println("Would you like to hit (h) or stick (s)?");
             String selection = s.nextLine();
@@ -32,13 +29,15 @@ class Game {
         }
 
         if (!user.hand.isBusted()) { // assuming user hasn't broken, let dealer take turn
-            System.out.println("The dealer has: ");
-            printHand(comp, comp.hand.getTotal());
+            System.out.print("The dealer has: "); printHand(comp, comp.hand.getTotal());
             while (comp.hand.getTotal() <= 17) {
                 Card d = deck.draw();
                 comp.addCard(d);
                 comp.setTotal(comp.hand.getTotal() + d.getValue());
-                System.out.println("The dealer now has: ");
+            }
+            if (comp.hand.getCards().size() - 2 > 0) {
+                System.out.print("The dealer draws " + (comp.hand.getCards().size() - 2) + " more card");
+                System.out.print((comp.hand.getCards().size() - 2 == 1) ? ", now with: " : "s, now with: "); // fix plurality of card(s) above
                 printHand(comp, comp.hand.getTotal());
             }
         }
