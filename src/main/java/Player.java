@@ -31,13 +31,15 @@ class Player {
         int aces = 0;
         this.total = 0;
         for (Card c : this.getCards()) {
-            this.total += c.getValue();
-            if (c.getValue() == 11) {
+            if (!c.isFace()) this.total += c.getValue();
+            if (c.isFace()) this.total += 10;
+
+            if (c.getValue() == 1) {
                 aces++;
             }
         }
-        while (total > 21 && aces > 0) {
-            total -= 10;
+        while (total < 21 && aces > 0) {
+            total += 10;
             aces--;
         }
         return total;
