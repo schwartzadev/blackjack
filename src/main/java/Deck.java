@@ -9,23 +9,22 @@ class Deck {
 
     public Deck() {
         for (int i = 1; i <= 13; i++) {
-            Card card = new Card(i, "\u2660");
+            Card card = new Card(i, Card.Suit.spades);
             cards.add(card);
         }
         for (int i = 1; i <= 13; i++) {
-            Card card = new Card(i, "\u2665");
+            Card card = new Card(i, Card.Suit.hearts);
             cards.add(card);
         }
         for (int i = 1; i <= 13; i++) {
-            Card card = new Card(i, "\u2666");
+            Card card = new Card(i, Card.Suit.diamonds);
             cards.add(card);
         }
         for (int i = 1; i <= 13; i++) {
-            Card card = new Card(i, "\u2663");
+            Card card = new Card(i, Card.Suit.clubs);
             cards.add(card);
         }
         this.shuffle();
-        this.fixFaceCards();
     }
 
     Card draw() {
@@ -38,26 +37,6 @@ class Deck {
         Collections.shuffle(this.cards);
     }
 
-    void fixFaceCards() {
-        for (Card c : cards) {
-            if (c.getValue() == 1) {
-                c.setKind("A");
-                c.setValue(11);
-            } else if (c.getValue() == 11) {
-                c.setKind("J");
-                c.setValue(10);
-            } else if (c.getValue() == 12) {
-                c.setKind("Q");
-                c.setValue(10);
-            } else if (c.getValue() == 13) {
-                c.setKind("K");
-                c.setValue(10);
-            }
-            else {
-                c.setKind(String.valueOf(c.getValue()));
-            }
-        }
-    }
 
     @Override
     public String toString() {
