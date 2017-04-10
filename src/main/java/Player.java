@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Created by werdn on 4/7/17.
  */
 class Player {
-    private ArrayList<Card> cards = new ArrayList<Card>();
+    Hand hand;
     private int total;
 
     public Player() {
@@ -16,7 +16,7 @@ class Player {
     }
 
     ArrayList<Card> getCards() {
-        return cards;
+        return hand.getCards();
     }
 
     void addCard(Card c) {
