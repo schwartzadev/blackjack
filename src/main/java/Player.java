@@ -31,6 +31,7 @@ class Player {
         int aces = 0;
         this.total = 0;
         for (Card c : this.getCards()) {
+            // total += c.isFace() ? 10 : c.getValue();
             if (!c.isFace()) {
                 this.total += c.getValue();
             }
@@ -41,7 +42,7 @@ class Player {
                 aces++;
             }
         }
-        while (total < 21 && aces > 0) {
+        while (total+(aces*11) < 21 && aces > 0) {
             total += 10;
             aces--;
         }
