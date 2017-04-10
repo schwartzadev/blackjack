@@ -27,25 +27,4 @@ class Player {
         return this.getCards().get(i);
     }
 
-    int getTotal() {
-        int aces = 0;
-        this.total = 0;
-        for (Card c : this.getCards()) {
-            // total += c.isFace() ? 10 : c.getValue();
-            if (!c.isFace()) {
-                this.total += c.getValue();
-            }
-            if (c.isFace()) {
-                this.total += 10;
-            }
-            if (c.isAce()) {
-                aces++;
-            }
-        }
-        while (total+(aces*11) < 21 && aces > 0) {
-            total += 10;
-            aces--;
-        }
-        return total;
-    }
 }

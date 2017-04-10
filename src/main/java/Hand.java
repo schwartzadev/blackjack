@@ -3,15 +3,42 @@ import java.util.ArrayList;
 /**
  * Created by werdn on 4/9/17.
  */
-public class Hand {
+class Hand {
+    private ArrayList<Card> cards = new ArrayList<Card>();
+    private int total;
+
     public ArrayList<Card> getCards() {
         return cards;
     }
 
-    public void setCards(ArrayList<Card> cards) {
-        this.cards = cards;
+    public boolean hasBlackjack() {
+        return this.cards.get(0).getValue() == 1 && this.cards.get(1).getValue() == 10;
     }
 
-    private ArrayList<Card> cards = new ArrayList<Card>();
+    public boolean isBusted() {
+        return this.getTotal() > 21;
+    }
+
+    int getTotal() {
+        int aces = 0;
+        this.total = 0;
+        for (Card c : this.getCards()) {
+            // total += c.isFace() ? 10 : c.getValue();
+            if (!c.isFace()) {
+                this.total += c.getValue();
+            }
+            if (c.isFace()) {
+                this.total += 10;
+            }
+            if (c.isAce()) {
+                aces++;
+            }
+        }
+        while (total+(aces*10) <= 21 && aces > 0) {
+            total += 10;
+            aces--;
+        }
+        return total;
+    }
 
 }
