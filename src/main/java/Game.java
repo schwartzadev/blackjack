@@ -12,15 +12,12 @@ class Game {
         user.addCard(deck.draw());
         comp.addCard(deck.draw());
         user.addCard(deck.draw());
-
+        Main.bet.print();
         System.out.println("The dealer has a " + comp.findCard(0) + " face up.");
         System.out.print("Your hand: "); printHand(user, user.hand.getTotal());
+        if (comp.hand.hasBlackjack()) { System.out.println("Dealer has blackjack!"); }
         Scanner s = new Scanner(System.in);
-        if (comp.hand.hasBlackjack()) {
-            System.out.println("Dealer has blackjack!");
-        }
-
-        while (!user.hand.isBusted()) { // while user hasn't broken
+        while (!user.hand.isBusted() && !comp.hand.hasBlackjack()) { // while user hasn't broken
             System.out.println("Would you like to hit (h) or stick (s)?");
             String selection = s.nextLine();
             if (selection.equals("h")) {
@@ -32,25 +29,31 @@ class Game {
         }
 
         if (!user.hand.isBusted()) { // assuming user hasn't broken, let dealer take turn
-            System.out.println("The dealer has: ");
-            printHand(comp, comp.hand.getTotal());
+            System.out.print("The dealer has: "); printHand(comp, comp.hand.getTotal());
             while (comp.hand.getTotal() <= 17) {
                 Card d = deck.draw();
                 comp.addCard(d);
                 comp.setTotal(comp.hand.getTotal() + d.getValue());
-                System.out.println("The dealer now has: ");
+            }
+            if (comp.hand.getCards().size() - 2 > 0) {
+                System.out.print("The dealer draws " + (comp.hand.getCards().size() - 2) + " more card");
+                System.out.print((comp.hand.getCards().size() - 2 == 1) ? ", now with: " : "s, now with: "); // fix plurality of card(s) above
                 printHand(comp, comp.hand.getTotal());
             }
         }
         if (comp.hand.isBusted()) {
             System.out.println("Dealer Busted!");
             System.out.println("You Win! Dealer busted at " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
+            Main.bet.win();
         } else if (user.hand.isBusted()) {
             System.out.println("You busted at " + user.hand.getTotal() + "!");
+            Main.bet.lose();
         } else if (comp.hand.getTotal() > user.hand.getTotal()) {
             System.out.println("Dealer Wins! Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
+            Main.bet.lose();
         } else if (user.hand.getTotal() > comp.hand.getTotal()) {
             System.out.println("You Win! Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
+            Main.bet.win();
         } else if (user.hand.getTotal() == comp.hand.getTotal()) {
             System.out.println("Push (aka tie). Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
         }
