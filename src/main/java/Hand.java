@@ -12,7 +12,7 @@ class Hand {
     }
 
     public boolean hasBlackjack() {
-        return this.cards.get(0).getValue() == 1 && this.cards.get(1).getValue() == 10;
+        return (this.cards.get(0).isAce() && this.cards.get(1).isFace()) || (this.cards.get(1).isAce() && (this.cards.get(0).isFace()));
     }
 
     public boolean isBusted() {
@@ -39,6 +39,13 @@ class Hand {
             aces--;
         }
         return total;
+    }
+
+    public void print() {
+        for (Card c : this.getCards()) {
+            System.out.print(c + " ");
+        }
+        System.out.println("(" + this.getTotal() + ")");
     }
 
 }
