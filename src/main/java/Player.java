@@ -8,11 +8,6 @@ class Player {
     private int total;
 
     public Player() {
-        this.total = 0;
-    }
-
-    void setTotal(int total) {
-        this.total = total;
     }
 
     ArrayList<Card> getCards() {
