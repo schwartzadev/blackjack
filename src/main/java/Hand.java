@@ -15,6 +15,10 @@ class Hand {
         return (this.cards.get(0).isAce() && this.cards.get(1).isFace()) || (this.cards.get(1).isAce() && (this.cards.get(0).isFace()));
     }
 
+    public boolean hasTwentyOne() {
+        return this.getTotal() == 21;
+    }
+
     public boolean isBusted() {
         return this.getTotal() > 21;
     }
