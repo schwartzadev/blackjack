@@ -1,22 +1,24 @@
 /**
  * Created by werdn on 4/10/17.
  */
-public class Bet {
+class Bet {
     private int total = 0;
     private int gamble = 10;
 
     public void win() {
-        setTotal(total += 2*gamble);
+        setTotal(total += gamble);
     }
 
     public void lose() {
         this.total -= gamble;
     }
 
-    // TODO add blackjack scenario (*1.5)
+    public void blackjack() {
+        this.total += gamble*1.5;
+    }
 
     public void print() {
-        System.out.println("Your bet is: " + this.gamble + ", and your total winnings is " + this.total);
+        System.out.println("Bet: " + this.gamble + ". Winnings: " + this.total);
     }
 
     public void setGamble(int gamble) {
