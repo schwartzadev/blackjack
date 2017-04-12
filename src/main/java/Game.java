@@ -16,56 +16,55 @@ class Game {
         Main.bet.print();
         System.out.println("Dealer: " + comp.findCard(0) + " face up.");
         System.out.print("Your hand: "); user.hand.print();
-        if (comp.hand.hasBlackjack()) { System.out.println("Dealer: blackjack!"); }
+        if (comp.hand.hasBlackjack()) { System.out.println("Dealer: Blackjack!"); }
         Scanner s = new Scanner(System.in);
-        while (!user.hand.isBusted() && !comp.hand.hasBlackjack() && !(user.hand.getTotal() == 21)) { // while user hasn't broken
+        while (!user.hand.isBusted() && !comp.hand.hasBlackjack() && !user.hand.hasTwentyOne()) { // while user hasn't broken
             System.out.println("Hit (h) or stick (s)?");
             String selection = s.nextLine();
-            if (selection.equals("h")) {
+            if (selection.equals("h")) { // if user hits...
                 Card d = deck.draw();
                 user.addCard(d);
-                user.setTotal(user.hand.getTotal() + d.getValue());
                 System.out.print("You: "); user.hand.print();
-            } else if (selection.equals("s")) { break; }
+            } else if (selection.equals("s")) { break; } // if user sticks, break out of loop
         }
 
-        if (!user.hand.isBusted() && !(user.hand.getTotal() == 21)) { // assuming user hasn't broken, let dealer take turn
+        if (!user.hand.isBusted() && !user.hand.hasTwentyOne() && !comp.hand.hasBlackjack()) { // assuming user hasn't broken, let dealer take turn
             System.out.print("Dealer: "); comp.hand.print();
-            while (comp.hand.getTotal() <= 16) {
+            while (comp.hand.getTotal() <= 16) { // dealer hits
                 Card d = deck.draw();
                 comp.addCard(d);
-                comp.setTotal(comp.hand.getTotal() + d.getValue());
             }
-            if (comp.hand.getCards().size() - 2 > 0) {
+            if (comp.hand.getCards().size() - 2 > 0) { // if dealer drew
                 System.out.print("Dealer: draws " + (comp.hand.getCards().size() - 2) + " card");
                 System.out.print((comp.hand.getCards().size() - 2 == 1) ? ", now with: " : "s, now with: "); // fix plurality of card(s) above
                 comp.hand.print();
             }
         }
+
         if (comp.hand.isBusted()) {
             System.out.println("Dealer: Bust!");
             System.out.println("You: Win!");
             Main.bet.win();
         } else if (user.hand.hasBlackjack()) {
-            System.out.println("Nice, you got blackjack!");
+            System.out.println("You: Blackjack!");
             Main.bet.blackjack();
-        } else if (user.hand.getTotal() == 21 && !user.hand.hasBlackjack()) {
+        } else if (user.hand.hasTwentyOne() && !user.hand.hasBlackjack()) { // auto win @21 but different output, scoring for blackjack
             System.out.println("You: Win!");
             Main.bet.win();
         } else if (user.hand.isBusted()) {
-            System.out.println("You: Bust! (" + user.hand.getTotal() + ")");
+            System.out.println("You: Lose! (" + user.hand.getTotal() + ")");
             Main.bet.lose();
         } else if (comp.hand.getTotal() > user.hand.getTotal()) {
             System.out.println("Dealer: Win. Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
             Main.bet.lose();
         } else if (user.hand.getTotal() > comp.hand.getTotal()) {
-            System.out.println("You Win! Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
+            System.out.println("You: Win! Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
             Main.bet.win();
         } else if (user.hand.getTotal() == comp.hand.getTotal()) {
             System.out.println("Push at " + user.hand.getTotal() + ".");
         }
         try {
-            TimeUnit.MILLISECONDS.sleep(700);
+            TimeUnit.MILLISECONDS.sleep(700); // pause for .7 seconds between rounds for better playability
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
