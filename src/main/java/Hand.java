@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Created by werdn on 4/9/17.
+ * Created by Andrew Schwartz on 4/9/17.
  */
 class Hand {
     private ArrayList<Card> cards = new ArrayList<Card>();
@@ -16,14 +16,15 @@ class Hand {
     }
 
     public boolean hasTwentyOne() {
-        return this.getTotal() == 21;
+        return this.getMaxTotal() == 21;
     }
 
     public boolean isBusted() {
-        return this.getTotal() > 21;
+        return this.getMaxTotal() > 21;
     }
 
-    int getTotal() {
+    ArrayList<Integer> getTotal() {
+        ArrayList<Integer> totals = new ArrayList<Integer>();
         int aces = 0;
         this.total = 0;
         for (Card c : this.getCards()) {
@@ -38,18 +39,27 @@ class Hand {
                 aces++;
             }
         }
+        totals.add(total);
         while (total+(aces*10) <= 21 && aces > 0) {
             total += 10;
             aces--;
+            totals.add(total);
         }
-        return total;
+        return totals;
+    }
+
+    public int getMaxTotal() {
+        return this.getTotal().get(this.getTotal().size()-1);
     }
 
     public void print() {
         for (Card c : this.getCards()) {
             System.out.print(c + " ");
         }
-        System.out.println("(" + this.getTotal() + ")");
+        for (int i : this.getTotal()) {
+            System.out.print("(" + i + ") ");
+        }
+        System.out.println("");
     }
 
 }
