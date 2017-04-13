@@ -55,7 +55,7 @@ class Game {
             System.out.println("You: Lose! (" + user.hand.getTotal() + ")");
             Main.bet.lose();
         } else if (comp.hand.getTotal() > user.hand.getTotal()) {
-            System.out.println("Dealer: Win. Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
+            System.out.println("You: Lose. Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
             Main.bet.lose();
         } else if (user.hand.getTotal() > comp.hand.getTotal()) {
             System.out.println("You: Win! Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
