@@ -55,7 +55,7 @@ class Game {
             System.out.println("You: Lose! (" + user.hand.getMaxTotal() + ")");
             Main.bet.lose();
         } else if (comp.hand.getMaxTotal() > user.hand.getMaxTotal()) {
-            System.out.println("Dealer: Win. Dealer had " + comp.hand.getMaxTotal() + ", you had " + user.hand.getMaxTotal() + ".");
+            System.out.println("You: Lose. Dealer had " + comp.hand.getMaxTotal() + ", you had " + user.hand.getMaxTotal() + ".");
             Main.bet.lose();
         } else if (user.hand.getMaxTotal() > comp.hand.getMaxTotal()) {
             System.out.println("You: Win! Dealer had " + comp.hand.getMaxTotal() + ", you had " + user.hand.getMaxTotal() + ".");
