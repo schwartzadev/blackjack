@@ -30,7 +30,7 @@ class Game {
 
         if (!user.hand.isBusted() && !user.hand.hasTwentyOne() && !comp.hand.hasBlackjack()) { // assuming user hasn't broken, let dealer take turn
             System.out.print("Dealer: "); comp.hand.print();
-            while (comp.hand.getTotal() <= 16) { // dealer hits
+            while (comp.hand.getMaxTotal() <= 16) { // dealer hits
                 Card d = deck.draw();
                 comp.addCard(d);
             }
@@ -52,16 +52,16 @@ class Game {
             System.out.println("You: Win!");
             Main.bet.win();
         } else if (user.hand.isBusted()) {
-            System.out.println("You: Lose! (" + user.hand.getTotal() + ")");
+            System.out.println("You: Lose! (" + user.hand.getMaxTotal() + ")");
             Main.bet.lose();
-        } else if (comp.hand.getTotal() > user.hand.getTotal()) {
-            System.out.println("You: Lose. Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
+        } else if (comp.hand.getMaxTotal() > user.hand.getMaxTotal()) {
+            System.out.println("You: Lose. Dealer had " + comp.hand.getMaxTotal() + ", you had " + user.hand.getMaxTotal() + ".");
             Main.bet.lose();
-        } else if (user.hand.getTotal() > comp.hand.getTotal()) {
-            System.out.println("You: Win! Dealer had " + comp.hand.getTotal() + ", you had " + user.hand.getTotal() + ".");
+        } else if (user.hand.getMaxTotal() > comp.hand.getMaxTotal()) {
+            System.out.println("You: Win! Dealer had " + comp.hand.getMaxTotal() + ", you had " + user.hand.getMaxTotal() + ".");
             Main.bet.win();
-        } else if (user.hand.getTotal() == comp.hand.getTotal()) {
-            System.out.println("Push at " + user.hand.getTotal() + ".");
+        } else if (user.hand.getMaxTotal() == comp.hand.getMaxTotal()) {
+            System.out.println("Push at " + user.hand.getMaxTotal() + ".");
         }
         try {
             TimeUnit.MILLISECONDS.sleep(700); // pause for .7 seconds between rounds for better playability
