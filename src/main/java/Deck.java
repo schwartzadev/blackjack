@@ -11,18 +11,12 @@ class Deck {
         for (int i = 1; i <= 13; i++) {
             Card card = new Card(i, Card.Suit.spades);
             cards.add(card);
-        }
-        for (int i = 1; i <= 13; i++) {
-            Card card = new Card(i, Card.Suit.hearts);
-            cards.add(card);
-        }
-        for (int i = 1; i <= 13; i++) {
-            Card card = new Card(i, Card.Suit.diamonds);
-            cards.add(card);
-        }
-        for (int i = 1; i <= 13; i++) {
-            Card card = new Card(i, Card.Suit.clubs);
-            cards.add(card);
+            Card card1 = new Card(i, Card.Suit.hearts);
+            cards.add(card1);
+            Card card2 = new Card(i, Card.Suit.diamonds);
+            cards.add(card2);
+            Card card3  = new Card(i, Card.Suit.clubs);
+            cards.add(card3);
         }
         this.shuffle();
     }
