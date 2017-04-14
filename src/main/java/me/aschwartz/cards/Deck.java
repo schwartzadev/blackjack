@@ -1,10 +1,14 @@
+package me.aschwartz.cards;
+
+import me.aschwartz.cards.Card;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * Created by werdn on 4/7/17.
  */
-class Deck {
+public class Deck {
     private ArrayList<Card> cards = new ArrayList<Card>();
 
     public Deck() {
@@ -21,7 +25,7 @@ class Deck {
         this.shuffle();
     }
 
-    Card draw() {
+    public Card draw() {
         Card c = this.cards.get(0);
         this.cards.remove(0);
         return c;

@@ -1,9 +1,11 @@
+package me.aschwartz.cards;
+
 import java.util.ArrayList;
 
 /**
  * Created by Andrew Schwartz on 4/9/17.
  */
-class Hand {
+public class Hand {
     private ArrayList<Card> cards = new ArrayList<Card>();
     private int total;
 
@@ -23,7 +25,7 @@ class Hand {
         return this.getMaxTotal() > 21;
     }
 
-    ArrayList<Integer> getTotal() {
+    public ArrayList<Integer> getTotal() {
         ArrayList<Integer> totals = new ArrayList<Integer>();
         int aces = 0;
         this.total = 0;

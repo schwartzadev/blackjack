@@ -1,3 +1,5 @@
+import me.aschwartz.cards.*;
+
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -15,53 +17,53 @@ class Game {
         user.addCard(deck.draw());
         Main.bet.print();
         System.out.println("Dealer: " + comp.findCard(0) + " face up.");
-        System.out.print("Your hand: "); user.hand.print();
-        if (comp.hand.hasBlackjack()) { System.out.println("Dealer: Blackjack!"); }
+        System.out.print("Your hand: "); user.getHand().print();
+        if (comp.getHand().hasBlackjack()) { System.out.println("Dealer: Blackjack!"); }
         Scanner s = new Scanner(System.in);
-        while (!user.hand.isBusted() && !comp.hand.hasBlackjack() && !user.hand.hasTwentyOne()) { // while user hasn't broken
+        while (!user.getHand().isBusted() && !comp.getHand().hasBlackjack() && !user.getHand().hasTwentyOne()) { // while user hasn't broken
             System.out.println("Hit (h) or stick (s)?");
             String selection = s.nextLine();
             if (selection.equals("h")) { // if user hits...
                 Card d = deck.draw();
                 user.addCard(d);
-                System.out.print("You: "); user.hand.print();
+                System.out.print("You: "); user.getHand().print();
             } else if (selection.equals("s")) { break; } // if user sticks, break out of loop
         }
 
-        if (!user.hand.isBusted() && !user.hand.hasTwentyOne() && !comp.hand.hasBlackjack()) { // assuming user hasn't broken, let dealer take turn
-            System.out.print("Dealer: "); comp.hand.print();
-            while (comp.hand.getMaxTotal() <= 16) { // dealer hits
+        if (!user.getHand().isBusted() && !user.getHand().hasTwentyOne() && !comp.getHand().hasBlackjack()) { // assuming user hasn't broken, let dealer take turn
+            System.out.print("Dealer: "); comp.getHand().print();
+            while (comp.getHand().getMaxTotal() <= 16) { // dealer hits
                 Card d = deck.draw();
                 comp.addCard(d);
             }
-            if (comp.hand.getCards().size() - 2 > 0) { // if dealer drew
-                System.out.print("Dealer: draws " + (comp.hand.getCards().size() - 2) + " card");
-                System.out.print((comp.hand.getCards().size() - 2 == 1) ? ", now with: " : "s, now with: "); // fix plurality of card(s) above
-                comp.hand.print();
+            if (comp.getHand().getCards().size() - 2 > 0) { // if dealer drew
+                System.out.print("Dealer: draws " + (comp.getHand().getCards().size() - 2) + " card");
+                System.out.print((comp.getHand().getCards().size() - 2 == 1) ? ", now with: " : "s, now with: "); // fix plurality of card(s) above
+                comp.getHand().print();
             }
         }
 
-        if (comp.hand.isBusted()) {
+        if (comp.getHand().isBusted()) {
             System.out.println("Dealer: Bust!");
             System.out.println("You: Win!");
             Main.bet.win();
-        } else if (user.hand.hasBlackjack()) {
+        } else if (user.getHand().hasBlackjack()) {
             System.out.println("You: Blackjack!");
             Main.bet.blackjack();
-        } else if (user.hand.hasTwentyOne() && !user.hand.hasBlackjack()) { // auto win @21 but different output, scoring for blackjack
+        } else if (user.getHand().hasTwentyOne() && !user.getHand().hasBlackjack()) { // auto win @21 but different output, scoring for blackjack
             System.out.println("You: Win!");
             Main.bet.win();
-        } else if (user.hand.isBusted()) {
-            System.out.println("You: Lose! (" + user.hand.getMaxTotal() + ")");
+        } else if (user.getHand().isBusted()) {
+            System.out.println("You: Lose! (" + user.getHand().getMaxTotal() + ")");
             Main.bet.lose();
-        } else if (comp.hand.getMaxTotal() > user.hand.getMaxTotal()) {
-            System.out.println("You: Lose. Dealer had " + comp.hand.getMaxTotal() + ", you had " + user.hand.getMaxTotal() + ".");
+        } else if (comp.getHand().getMaxTotal() > user.getHand().getMaxTotal()) {
+            System.out.println("You: Lose. Dealer had " + comp.getHand().getMaxTotal() + ", you had " + user.getHand().getMaxTotal() + ".");
             Main.bet.lose();
-        } else if (user.hand.getMaxTotal() > comp.hand.getMaxTotal()) {
-            System.out.println("You: Win! Dealer had " + comp.hand.getMaxTotal() + ", you had " + user.hand.getMaxTotal() + ".");
+        } else if (user.getHand().getMaxTotal() > comp.getHand().getMaxTotal()) {
+            System.out.println("You: Win! Dealer had " + comp.getHand().getMaxTotal() + ", you had " + user.getHand().getMaxTotal() + ".");
             Main.bet.win();
-        } else if (user.hand.getMaxTotal() == comp.hand.getMaxTotal()) {
-            System.out.println("Push at " + user.hand.getMaxTotal() + ".");
+        } else if (user.getHand().getMaxTotal() == comp.getHand().getMaxTotal()) {
+            System.out.println("Push at " + user.getHand().getMaxTotal() + ".");
         }
         try {
             TimeUnit.MILLISECONDS.sleep(700); // pause for .7 seconds between rounds for better playability

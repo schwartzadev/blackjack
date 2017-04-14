@@ -1,7 +1,9 @@
+package me.aschwartz.cards;
+
 /**
  * Created by werdn on 4/7/17.
  */
-class Card {
+public class Card {
     private String kind;
 
     enum Suit {
@@ -33,7 +35,7 @@ class Card {
     boolean isAce() { return this.value == 1; }
     boolean isFace() { return this.value >= 11; }
 
-    String getDisplayValue() {
+    public String getDisplayValue() {
         if(this.isAce()) {
             return "A";
         }
